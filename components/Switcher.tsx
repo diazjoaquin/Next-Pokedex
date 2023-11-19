@@ -1,39 +1,39 @@
+import React from "react";
 import Image from "next/image";
 
-const Switcher = () => {
 
-    
-    const handleChangeTheme = () => {
-        document.body.classList.toggle('dark');
-        document.querySelector('#switch')?.classList.toggle('active');
-    };
+interface SwitcherProps {
+    dark?: boolean;
+    toggleDarkTheme: any
+}
+
+const Switcher: React.FC<SwitcherProps> = ({
+    dark,
+    toggleDarkTheme
+}) => {
 
     return (
-        <button 
-        id="switch" 
-        onClick={handleChangeTheme} 
+        <button
+        onClick={toggleDarkTheme} 
         className=
-        {`${'active' ? 'bg-yellow-400' : 'bg-zinc-900/80'}
-        ${'active' ? 'after:right-0' : ''}
-        bg-zinc-900/80
+        {`${dark ? 'bg-zinc-900/80' : 'bg-yellow-500/80'}
+        ${dark ? 'after:right-0' : 'after:left-0'}
         rounded-full
         relative
         cursor-pointer
         flex
         outline-none
         shadow-md
+        px-[2px]
         shadow-zinc-700
         after:block
-        after:w-[35px]
-        after:h-[35px]
+        after:w-[36px]
+        after:h-[36px]
         after:absolute
         after:bg-zinc-100
         after:top-0
-        after:left-0
         after:inset-y-0
         after:rounded-full
-        after:transition
-        after:duration-300
         after:shadow-sm
         after:shadow-zinc-700
         `}>
@@ -41,13 +41,17 @@ const Switcher = () => {
                 <Image 
                 width={35} 
                 height={35} 
-                src="/images/sun.png" alt="sun"/>
+                src="/images/sun.png" 
+                className="block leading-8"
+                alt="sun"/>
             </span>
             <span>
                 <Image 
                 width={35} 
                 height={35} 
-                src="/images/moon.png" alt="moon"/>
+                src="/images/moon.png" 
+                className="block leading-8"
+                alt="moon"/>
             </span>
         </button>
     );

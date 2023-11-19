@@ -4,18 +4,21 @@ import { useState, useCallback } from "react";
 import NavbarMenu from "./NavbarMenu";
 
 export default function Navbar () {
-
-    const dark = document.body.classList.contains('dark');
     
     const [ showNavbarMenu , setShowNavbarMenu ] = useState(false);
+    const [ darkTheme, setDarkTheme ] = useState(false);
 
+    const toggleDarkTheme = useCallback(() => {
+        setDarkTheme((current) => !current)
+    }, [darkTheme])
+    
     const toggleNavbarMenu = useCallback(() => {
         setShowNavbarMenu((current) => !current)
     }, []);
 
     return (
         <nav className=
-        {`${dark ? 'bg-zinc-900/80' : 'bg-red-600/80'} 
+        {`${darkTheme ? 'bg-zinc-900/80' : 'bg-red-600/80'} 
         flex 
         fixed 
         top-3 
@@ -50,9 +53,9 @@ export default function Navbar () {
                     transition
                     duration-300`}/>
                 </button>
-                <NavbarMenu visible={showNavbarMenu}/>
+                <NavbarMenu dark={darkTheme} visible={showNavbarMenu}/>
                 <div className="flex items-center justify-center">
-                    <Switcher/>
+                    <Switcher dark={darkTheme} toggleDarkTheme={() => toggleDarkTheme()}/>
                 </div>
             </div>
         </nav>

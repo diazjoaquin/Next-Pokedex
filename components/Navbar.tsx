@@ -20,7 +20,8 @@ export default function Navbar () {
         <nav className=
         {`${darkTheme ? 'bg-zinc-900/80' : 'bg-red-600/80'} 
         flex 
-        fixed 
+        fixed
+        z-50
         top-3 
         items-center 
         justify-around 

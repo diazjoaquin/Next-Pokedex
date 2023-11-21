@@ -21,6 +21,7 @@ model Pokemon {
   height Int
   weight Int
   custom Boolean?
+  types String[]
 }
 
 model Types {

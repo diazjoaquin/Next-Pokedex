@@ -55,10 +55,10 @@ const Card: React.FC<CardProps> = ({
                     </svg>
                 </span>
             </div>
-            <div className="mb-12 flex justify-evenly gap-2 w-full mt-3 px-6 bottom-0">
+            <div className="mb-8 flex justify-evenly gap-2 w-full mt-5 px-6 bottom-0">
                 {types?.map((type:any) => {
                     return (
-                        <span key={type} className="sm:w-[20%] md:w-[40%] lg:w-[40%] border-2 rounded-full p-4"><img src={`https://raw.githubusercontent.com/duiker101/pokemon-type-svg-icons/5781623f147f1bf850f426cfe1874ba56a9b75ee/icons/${type}.svg`} alt="type"/></span>
+                        <span key={type} className={`${type} sm:w-[20%] md:w-[40%] lg:w-[40%] max-w-[65px] rounded-full p-4`}><img src={`/images/types/${type}.svg`} alt="type"/></span>
                     )
                 })}
             </div>

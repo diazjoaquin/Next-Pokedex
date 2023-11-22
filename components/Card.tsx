@@ -23,7 +23,7 @@ const Card: React.FC<CardProps> = ({
 
 
     return (
-        <div className="flex flex-col rounded-xl items-center justify-between bg-red-600/80 shadow-md shadow-zinc-700 hover:scale-110 px-2">
+        <div className="flex flex-col rounded-xl items-center justify-between bg-red-600/80 shadow-md shadow-zinc-700 hover:scale-110 px-2 transition ease-in-out delay-150">
             <div id={id} className=" text-white gap-2 font-bold flex w-100 mt-6">
                 <h1>{name}</h1>
             </div>

@@ -9,16 +9,13 @@ export default async function handler (req: NextApiRequest, res: NextApiResponse
     }
 
     try {
-        const types = await axios.get('https://pokeapi.co/api/v2/type/?offset=0&limit=18')
-        .then(res => res.data.results.map(async (type: any) => {
-            prismadb.type.create({
-                data: {
-                    name: type.name
-                }
-            });
-        }));
-
-        return res.status(200).json(types);
+        const types = await axios.get('https://pokeapi.co/api/v2/type/?offset=0&limit=18');
+        
+        const result : any = []
+        const data = types.data?.results.map((type: any) => {
+            result.push(type.name);
+        })
+        return res.status(200).json(result);
 
     } catch (error) {
         throw new Error ("Invalid Request");

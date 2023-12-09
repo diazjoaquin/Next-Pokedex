@@ -18,7 +18,7 @@ export default function Navbar () {
 
     return (
         <nav className=
-        {`${darkTheme ? 'bg-zinc-900/80' : 'bg-red-600/80'} 
+        {`${darkTheme ? 'bg-zinc-700' : 'bg-red-600'} 
         flex 
         fixed
         z-50

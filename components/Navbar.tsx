@@ -2,15 +2,12 @@ import Image from "next/image";
 import Switcher from "./Switcher";
 import { useState, useCallback } from "react";
 import NavbarMenu from "./NavbarMenu";
+import { useTheme } from "@/hooks/ThemeContext";
 
 export default function Navbar () {
     
     const [ showNavbarMenu , setShowNavbarMenu ] = useState(false);
-    const [ darkTheme, setDarkTheme ] = useState(false);
-
-    const toggleDarkTheme = useCallback(() => {
-        setDarkTheme((current) => !current)
-    }, [darkTheme])
+    const { darkTheme, toggleDarkTheme } = useTheme();
     
     const toggleNavbarMenu = useCallback(() => {
         setShowNavbarMenu((current) => !current)
@@ -18,7 +15,7 @@ export default function Navbar () {
 
     return (
         <nav className=
-        {`${darkTheme ? 'bg-zinc-700' : 'bg-red-600'} 
+        {`${darkTheme ? 'bg-zinc-800' : 'bg-red-600'} 
         flex 
         fixed
         z-50

@@ -1,14 +1,16 @@
 import useTypes from '@/hooks/useTypes';
+import { useTheme } from "@/hooks/ThemeContext";
 
 const Filter = () => {
 
     const { data } = useTypes();
+    const { darkTheme } = useTheme();
     
 
     return (
         <aside className="fixed flex items-center justify-center left-10 w-10 h-screen hover:w-[25%] group">
             <div className="block group-hover:rotate-180 transition duration-150">
-                <svg xmlns="http://www.w3.org/2000/svg" className="icon icon-tabler icon-tabler-circle-arrow-right" width="52" height="52" viewBox="0 0 24 24" strokeWidth="1.5" stroke="#ff2825" fill="none" strokeLinecap="round" strokeLinejoin="round">
+                <svg xmlns="http://www.w3.org/2000/svg" className="icon icon-tabler icon-tabler-circle-arrow-right" width="52" height="52" viewBox="0 0 24 24" strokeWidth="1.5" stroke={`${darkTheme ? '#18181b' : '#dc2626'}`} fill="none" strokeLinecap="round" strokeLinejoin="round">
                     <path stroke="none" d="M0 0h24v24H0z" fill="none"/>
                     <path d="M12 3a9 9 0 1 0 0 18a9 9 0 0 0 0 -18" />
                     <path d="M16 12l-4 -4" />
@@ -16,7 +18,7 @@ const Filter = () => {
                     <path d="M12 16l4 -4" />
                 </svg>
             </div>
-            <div className="bg-red-700 rounded-lg shadow-md shadow-zinc-600 h-[60%] w-[90%] hidden group-hover:block">
+            <div className={`${darkTheme ? 'bg-zinc-800' : 'bg-red-700'} rounded-lg shadow-md shadow-zinc-900 h-[60%] w-[90%] hidden group-hover:block`}>
                 <div className="flex flex-col gap-2 py-2 px-4">
                     <h3 className="text-white text-lg font-bold">Order by:</h3>
 

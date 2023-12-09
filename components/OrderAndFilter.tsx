@@ -50,6 +50,9 @@ const Filter = () => {
                         }
                     </select>
                 </div>
+                <div className='px-4 py-2 flex justify-center w-full'>
+                    <button className='w-full text-md px-2 py-2 rounded-xl bg-sky-500 font-bold text-white uppercase hover:brightness-110'>Apply</button>
+                </div>
             </div>
         </aside>
     )

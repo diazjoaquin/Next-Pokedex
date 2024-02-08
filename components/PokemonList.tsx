@@ -1,28 +1,25 @@
-import usePokemonList from "@/hooks/usePokemonList";
-import { useState, useRef, useEffect } from "react";
 import Card from "./Card";
 import OrderAndFilter from "./OrderAndFilter";
+import {  useEffect } from "react";
+import { AppState } from "@/redux/store";
+import { getPokemons } from "@/redux/actions";
+import { useAppDispatch  } from "@/redux/hooks";
+import { useSelector } from "react-redux";
 
 const PokemonList = () => {
 
-    const { data } = usePokemonList();
-    const [ currentItems ] = useState(12);
+    const pokemons = useSelector((state?: AppState) => state?.pokemons);
+    const dispatch = useAppDispatch();
 
-    const currentData : any = [];
-    console.log(currentData);
-    
-    
-    for (let i = 0; i < data?.length; i += currentItems ) {
-        currentData.push([data?.slice(i, i + currentItems)]);
-    }
-
-    const [ items, setItems ] = useState(null);
+    useEffect(() => {
+        dispatch(getPokemons());
+    }, [dispatch]);
     
     return (
         <main className="flex w-screen h-screen justify-center items-center">
             <div className="grid md:grid-cols-3 lg:grid-cols-4 w-[80%] h-[60%] gap-5 lg:gap-8">
                 {
-                data?.map((pokemon: any) => {
+                pokemons?.map((pokemon: any) => {
                     return (
                         <Card
                         key={pokemon.id}

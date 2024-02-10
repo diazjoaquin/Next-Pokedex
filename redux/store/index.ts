@@ -48,6 +48,12 @@ const rootReducer = (state = initialState, action : Action) => {
         ...state,
         pokemons: state.filter.filter((pokemon: any) => pokemon.types.includes(action.payload))
       }
+
+    case YourActionTypes.CLEAR_FILTER:
+      return {
+        ...state,
+        pokemons: [...state.filter]
+      }
   }
 }
 

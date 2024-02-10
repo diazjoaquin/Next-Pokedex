@@ -1,10 +1,35 @@
-import useTypes from '@/hooks/useTypes';
 import { useTheme } from "@/hooks/ThemeContext";
+import { clearFilter, filterByType, getTypes } from "@/redux/actions";
+import { useAppSelector, useAppDispatch } from "@/redux/hooks";
+import { AppState } from "@/redux/store";
+import { useEffect, useState } from "react";
+
 
 const Filter = () => {
 
-    const { data } = useTypes();
     const { darkTheme } = useTheme();
+    const data = useAppSelector((state?: AppState) => state?.types);
+    const [ selectedOption, setSelectedOption ] = useState('');
+
+    const dispatch = useAppDispatch();
+
+    useEffect(() => {
+        dispatch(getTypes());
+    }, [dispatch]);
+
+    const handleFilterByType = (event: any) => {
+
+        dispatch(filterByType(event.target.value));
+        setSelectedOption(event.target.value)
+    }
+
+    const handleClearFilter = () => {
+
+        if (!selectedOption) {
+            return alert ('Filter is already cleared');
+        } setSelectedOption('');
+        dispatch(clearFilter());
+    }
     
 
     return (
@@ -42,7 +67,8 @@ const Filter = () => {
                 </div>
                 <div className="flex flex-col gap-2 py-2 px-4">
                     <h3 className="text-white text-lg font-bold">Filter by Types</h3>
-                    <select name="" id="Types" className="rounded-md py-1">
+                    <select name="" id="Types" onChange={(event) => handleFilterByType(event)} className="rounded-md py-1">
+                        <option></option>
                         {
                         data?.map((type : string) => {
                             return <option key={type}>
@@ -52,8 +78,13 @@ const Filter = () => {
                         }
                     </select>
                 </div>
-                <div className='px-4 py-2 flex justify-center w-full'>
-                    <button className='w-full text-md px-2 py-2 rounded-xl bg-sky-500 font-bold text-white uppercase hover:brightness-110'>Apply</button>
+                <div className="flex flex-row gap-2 py-2 px-4">
+                    {
+                        selectedOption && <span className={`${selectedOption} text-white font-bold rounded-xl py-2 px-4 border-2 `}>
+                            {selectedOption}
+                        </span>
+                    }
+                    <button className='w-full text-md px-2 py-2 rounded-xl bg-sky-500 font-bold text-white hover:brightness-110' onClick={() => handleClearFilter()}>Clear filter</button>
                 </div>
             </div>
         </aside>

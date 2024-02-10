@@ -11,6 +11,7 @@ export enum YourActionTypes {
     FILTER_BY_CREATED = 'FILTER_BY_CREATED',
     ORDER_BY_NAME = 'ORDER_BY_NAME',
     ORDER_BY_ATTACK = 'ORDER_BY_ATTACK',
+    ORDER_BY_DEFENSE = 'ODER_BY_DEFENSE',
     DELETE_POKEMON = 'DELETE_POKEMON',
     CLEAR_DETAIL = 'CLEAR_DETAIL',
     CLEAR_FILTER = 'CLEAR_FILTER'
@@ -81,7 +82,50 @@ export const clearFilter = () => async (dispatch: Dispatch) => {
         return dispatch({
             type: YourActionTypes.CLEAR_FILTER,
         })
+
     } catch (error) {
         throw new Error ('Cannot clear filters');
+    }
+};
+
+export const orderByName = (payload: string) => (dispatch: Dispatch) => {
+    try {
+
+        return dispatch({
+            type: YourActionTypes.ORDER_BY_NAME,
+            payload
+        })
+        
+    } catch (error) {
+        throw new Error ('Error ordering by name');
+        
+    }
+};
+
+export const orderByAttack = (payload: string) => (dispatch: Dispatch) => {
+    try {
+        
+        return dispatch({
+            type: YourActionTypes.ORDER_BY_ATTACK,
+            payload
+        })
+
+    } catch (error) {
+        throw new Error ('Error ordering by name');
+        
+    }
+};
+
+export const orderByDefense = (payload: string) => (dispatch: Dispatch) => {
+    try {
+        
+        return dispatch({
+            type: YourActionTypes.ORDER_BY_DEFENSE,
+            payload
+        })
+
+    } catch (error) {
+        throw new Error ('Error ordering by name');
+        
     }
 };

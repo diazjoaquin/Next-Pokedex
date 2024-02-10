@@ -25,11 +25,16 @@ const rootReducer = (state = initialState, action : Action) => {
       return {
         ...state,
         pokemons:action.payload
-      }
+      };
     case YourActionTypes.GET_TYPES:
       return {
         ...state,
         types: action.payload
+      };
+    case YourActionTypes.GET_POKEMON_BYNAME:
+      return {
+        ...state,
+        pokemons: state.pokemons.filter((pokemon : any) => pokemon.name === action.payload.name)
       }
   }
 }

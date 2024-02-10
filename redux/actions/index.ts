@@ -34,7 +34,7 @@ export const getPokemons = () => async (dispatch: Dispatch) => {
 export const getTypes = () =>  async (dispatch: Dispatch) => {
     try {
 
-        const { data } = await axios.get('api/types');
+        const { data } = await axios.get('/api/types');
 
         return dispatch({
             type: YourActionTypes.GET_TYPES,
@@ -45,3 +45,18 @@ export const getTypes = () =>  async (dispatch: Dispatch) => {
         throw new Error('Error fetching Types!')
     }
 };
+
+export const getPokemonByName = (name : string) => async (dispatch: Dispatch) => {
+    try {
+
+        const { data } = await axios.get(`/api/pokemon?name=${name}`);
+
+        return dispatch({
+            type: YourActionTypes.GET_POKEMON_BYNAME,
+            payload: data
+        })
+        
+    } catch (error) {
+        throw new Error('Cannot get pokemon by name');
+    }
+}

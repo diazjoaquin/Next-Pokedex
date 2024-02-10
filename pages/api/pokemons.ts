@@ -1,7 +1,7 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import prismadb from '@/libs/prismadb';
 import axios from "axios";
-// import pokemon from '@/pages/api/controler/pokemons';
+// import { GetPokemonByName } from "@/pages/api/controllers/GetPokemonByName";
 
 export default async function handler (req: NextApiRequest, res: NextApiResponse) {
 
@@ -10,6 +10,7 @@ export default async function handler (req: NextApiRequest, res: NextApiResponse
     }
 
     try {
+
         const api = await axios.get('https://pokeapi.co/api/v2/pokemon?offset=0&limit=251');
         const all = await Promise.all(api.data.results?.map((pokemon: any) => axios.get(pokemon.url)));
 

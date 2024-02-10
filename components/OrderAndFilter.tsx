@@ -1,5 +1,5 @@
 import { useTheme } from "@/hooks/ThemeContext";
-import { clearFilter, filterByType, getTypes } from "@/redux/actions";
+import { clearFilter, filterByType, getTypes, orderByAttack, orderByDefense, orderByName } from "@/redux/actions";
 import { useAppSelector, useAppDispatch } from "@/redux/hooks";
 import { AppState } from "@/redux/store";
 import { useEffect, useState } from "react";
@@ -10,6 +10,7 @@ const Filter = () => {
     const { darkTheme } = useTheme();
     const data = useAppSelector((state?: AppState) => state?.types);
     const [ selectedOption, setSelectedOption ] = useState('');
+    const [ order, setOrder ] = useState('');
 
     const dispatch = useAppDispatch();
 
@@ -30,6 +31,24 @@ const Filter = () => {
         } setSelectedOption('');
         dispatch(clearFilter());
     }
+
+    const handleOrderByName = (event: any) => {
+        console.log(order);
+        dispatch(orderByName(event.target.value));
+        
+        setOrder(event.target.value);
+    }
+
+    const handleOrderByAttack = (event: any) => {
+        dispatch(orderByAttack(event.target.value));
+        setOrder(event.target.value);
+
+    }
+
+    const handleOrderByDefense = (event: any) => {
+        dispatch(orderByDefense(event.target.value));
+        setOrder(event.target.value);
+    }
     
 
     return (
@@ -47,22 +66,22 @@ const Filter = () => {
                 <div className="flex flex-col gap-2 py-2 px-4">
                     <h3 className="text-white text-lg font-bold">Order by:</h3>
 
-                    <select name="Name" id="Name" className="rounded-md py-1">
+                    <select name="Name" id="Name" onChange={(event) => handleOrderByName(event)} className="rounded-md py-1">
                         <option value="Name">Name</option>
-                        <option value="">A-Z</option>
-                        <option value="">Z-A</option>
+                        <option value="A-Z">A-Z</option>
+                        <option value="Z-A">Z-A</option>
 
                     </select>
-                    <select name="Defense" id="Defense" className="rounded-md py-1">
+                    <select name="Defense" id="Defense" onChange={(event) => handleOrderByDefense(event)} className="rounded-md py-1">
                         <option value="Defense">Defense</option>
-                        <option value="">Min-Max</option>
-                        <option value="">Max-Min</option>
+                        <option value="Min-Max">Min-Max</option>
+                        <option value="Max-Min">Max-Min</option>
 
                     </select>
-                    <select name="Attack" id="Attack" className="rounded-md py-1">
-                    <option value="Attack">Attack</option>
-                        <option value="">Min-Max</option>
-                        <option value="">Max-Min</option>
+                    <select name="Attack" id="Attack" onChange={(event) => handleOrderByAttack(event)} className="rounded-md py-1">
+                        <option value="Attack">Attack</option>
+                        <option value="Min-Max">Min-Max</option>
+                        <option value="Max-Min">Max-Min</option>
                     </select>
                 </div>
                 <div className="flex flex-col gap-2 py-2 px-4">

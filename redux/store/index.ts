@@ -6,12 +6,15 @@ export interface AppState {
   pokemons: [],
   types: [],
   details: {},
+  filter: []
 }
 
 const initialState : AppState = {
   pokemons: [],
   types: [],
-  details: {}
+  details: {},
+  filter: []
+
 }
 
 interface Action {
@@ -24,17 +27,26 @@ const rootReducer = (state = initialState, action : Action) => {
     case YourActionTypes.GET_ALL_POKEMONS:
       return {
         ...state,
-        pokemons:action.payload
+        pokemons: action.payload,
+        filter: action.payload
       };
+
     case YourActionTypes.GET_TYPES:
       return {
         ...state,
         types: action.payload
       };
+
     case YourActionTypes.GET_POKEMON_BYNAME:
       return {
         ...state,
-        pokemons: state.pokemons.filter((pokemon : any) => pokemon.name === action.payload.name)
+        pokemons: state.pokemons.filter((pokemon : any) => pokemon.name.includes(action.payload.name))  
+      }
+
+    case YourActionTypes.FILTER_BY_TYPE:
+      return {
+        ...state,
+        pokemons: state.filter.filter((pokemon: any) => pokemon.types.includes(action.payload))
       }
   }
 }

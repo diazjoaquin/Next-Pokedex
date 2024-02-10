@@ -59,4 +59,17 @@ export const getPokemonByName = (name : string) => async (dispatch: Dispatch) =>
     } catch (error) {
         throw new Error('Cannot get pokemon by name');
     }
+};
+
+export const filterByType = (payload: string) => async (dispatch: Dispatch) => {
+    try {
+
+        return dispatch({
+            type: YourActionTypes.FILTER_BY_TYPE,
+            payload
+        })
+        
+    } catch (error) {
+        throw new Error('Cannot filter by type');
+    }
 }

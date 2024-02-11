@@ -1,55 +1,56 @@
 import { useTheme } from "@/hooks/ThemeContext";
-import { clearFilter, filterByType, getTypes, orderByAttack, orderByDefense, orderByName } from "@/redux/actions";
+import { filterByType, getTypes, orderByAttack, orderByDefense, orderByName } from "@/redux/actions";
 import { useAppSelector, useAppDispatch } from "@/redux/hooks";
 import { AppState } from "@/redux/store";
-import { useEffect, useState } from "react";
+import { ChangeEvent, useEffect, useState } from "react";
 
 
 const Filter = () => {
 
     const { darkTheme } = useTheme();
     const data = useAppSelector((state?: AppState) => state?.types);
-    const [ selectedOption, setSelectedOption ] = useState('');
+    const [ selectedOptions, setSelectedOptions ] = useState<String[]>([]);
     const [ order, setOrder ] = useState('');
 
     const dispatch = useAppDispatch();
 
     useEffect(() => {
         dispatch(getTypes());
-    }, [dispatch]);
+        dispatch(filterByType(selectedOptions));
+    }, [selectedOptions, dispatch]);
 
-    const handleFilterByType = (event: any) => {
-
-        dispatch(filterByType(event.target.value));
-        setSelectedOption(event.target.value)
+    const handleFilterByType = (event: ChangeEvent<HTMLSelectElement>) => {
+        const data: string = event.target.value;
+        if (selectedOptions.length >= 2) return alert ('You cannot filter by more than two types');
+        if (!selectedOptions.includes(data) && selectedOptions.length < 2) {
+            setSelectedOptions([...selectedOptions, data]);
+        };
+        
     }
 
-    const handleClearFilter = () => {
-
-        if (!selectedOption) {
-            return alert ('Filter is already cleared');
-        } setSelectedOption('');
-        dispatch(clearFilter());
-    }
-
-    const handleOrderByName = (event: any) => {
+    const handleOrderByName = (event: ChangeEvent<HTMLSelectElement>) => {
         console.log(order);
         dispatch(orderByName(event.target.value));
         
         setOrder(event.target.value);
     }
 
-    const handleOrderByAttack = (event: any) => {
+    const handleOrderByAttack = (event: ChangeEvent<HTMLSelectElement>) => {
         dispatch(orderByAttack(event.target.value));
         setOrder(event.target.value);
 
     }
 
-    const handleOrderByDefense = (event: any) => {
+    const handleOrderByDefense = (event: ChangeEvent<HTMLSelectElement>) => {
         dispatch(orderByDefense(event.target.value));
         setOrder(event.target.value);
     }
     
+    const handleDeleteFilter = (typeToRemove: String) => {
+        
+        const updateOptions = selectedOptions.filter(type => type !== typeToRemove);
+        setSelectedOptions(updateOptions);
+    }
 
     return (
         <aside className="fixed flex items-center justify-center left-10 w-10 h-screen hover:w-[25%] group">
@@ -99,11 +100,13 @@ const Filter = () => {
                 </div>
                 <div className="flex flex-row gap-2 py-2 px-4">
                     {
-                        selectedOption && <span className={`${selectedOption} text-white font-bold rounded-xl py-2 px-4 border-2 `}>
-                            {selectedOption}
-                        </span>
+                        selectedOptions.length > 0 && selectedOptions.length <= 2 && selectedOptions.map((type, index) => {
+                        return <span className={`${type} text-white font-bold flex gap-1 rounded-3xl py-2 px-4 border-2`} key={index}>
+                            {type}
+                            <span className="relative font-normal left-1 pb-1 px-1 cursor-pointer" onClick={() => handleDeleteFilter(type)}>x</span>
+                        </span>})
                     }
-                    <button className='w-full text-md px-2 py-2 rounded-xl bg-sky-500 font-bold text-white hover:brightness-110' onClick={() => handleClearFilter()}>Clear filter</button>
+                         
                 </div>
             </div>
         </aside>

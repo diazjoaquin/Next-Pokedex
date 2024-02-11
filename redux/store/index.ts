@@ -46,20 +46,27 @@ const rootReducer = (state = initialState, action : Action) => {
     case YourActionTypes.GET_POKEMON_BYNAME:
       return {
         ...state,
-        pokemons: state.pokemons.filter((pokemon : any) => pokemon.name.includes(action.payload.name))  
+        pokemons: state.filter.slice().filter((pokemon : any) => pokemon.name.includes(action.payload.name))  
       }
 
     case YourActionTypes.FILTER_BY_TYPE:
-      return {
-        ...state,
-        pokemons: state.filter.filter((pokemon: any) => pokemon.types.includes(action.payload))
-      }
 
-    case YourActionTypes.CLEAR_FILTER:
+    if (Array.isArray(action.payload) && action.payload.length > 0) {
+      const result = action.payload.length === 1 ?  
+      state.filter.slice().filter((pokemon: any) => pokemon.types.includes(action.payload[0])) : 
+      state.filter.slice().filter((pokemon: any) => pokemon.types.includes(action.payload[0]) && 
+      pokemon.types.includes(action.payload[1]));;
+
       return {
         ...state,
-        pokemons: [...state.filter]
+        pokemons: result
       }
+    }
+
+    return {
+      ...state,
+      pokemons: [...state.filter]
+    }
 
     case YourActionTypes.ORDER_BY_NAME:
 

@@ -14,7 +14,6 @@ export enum YourActionTypes {
     ORDER_BY_DEFENSE = 'ODER_BY_DEFENSE',
     DELETE_POKEMON = 'DELETE_POKEMON',
     CLEAR_DETAIL = 'CLEAR_DETAIL',
-    CLEAR_FILTER = 'CLEAR_FILTER'
 }
 
 
@@ -63,7 +62,7 @@ export const getPokemonByName = (name : string) => async (dispatch: Dispatch) =>
     }
 };
 
-export const filterByType = (payload: string) => (dispatch: Dispatch) => {
+export const filterByType = (payload: String[]) => (dispatch: Dispatch) => {
     try {
 
         return dispatch({
@@ -73,18 +72,6 @@ export const filterByType = (payload: string) => (dispatch: Dispatch) => {
         
     } catch (error) {
         throw new Error('Cannot filter by type');
-    }
-};
-
-export const clearFilter = () => async (dispatch: Dispatch) => {
-    try {
-        
-        return dispatch({
-            type: YourActionTypes.CLEAR_FILTER,
-        })
-
-    } catch (error) {
-        throw new Error ('Cannot clear filters');
     }
 };
 

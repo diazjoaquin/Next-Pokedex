@@ -1,13 +1,33 @@
 import Navbar from "@/components/Navbar";
 import { Sidebar } from "@/components/Sidebar";
-import useTypes from "@/hooks/useTypes"; 
 import { useTheme } from "@/hooks/ThemeContext";
+import { getTypes } from "@/redux/actions";
+import { useAppSelector, useAppDispatch } from "@/redux/hooks";
+import { AppState } from "@/redux/store";
+import { ChangeEvent, useEffect, useState } from "react";
 
 const Create = () => {
 
-    const { data } = useTypes();
     const { darkTheme } = useTheme(); 
+    const data = useAppSelector((state?: AppState) => state?.types);
+    const dispatch = useAppDispatch();
+    const [ selectedTypes, setSelectedTypes ] = useState<string[]>([]);
+
+    useEffect(() => {
+        dispatch(getTypes());
+    }, [dispatch]);
+
+    const handleSelectType = (event: ChangeEvent<HTMLSelectElement>) => {
+        const data: string = event.target.value;
+        if (!selectedTypes.includes(data) && selectedTypes.length < 2) {
+            setSelectedTypes([...selectedTypes, data])
+        };
+    };
     
+    const handleRemoveType = (typeToRemove: string) => {
+        const updateSelectedTypes = selectedTypes.filter(type => type !== typeToRemove);
+        setSelectedTypes(updateSelectedTypes);
+    }
 
     return (
         <main className="w-full h-full flex items-center justify-center">
@@ -59,11 +79,22 @@ const Create = () => {
                         <input className="rounded-md px-2" type="text" />
 
                         <label className="text-white" htmlFor="">Types:</label>
-                        <select className="rounded-md px-2" name="type" id="">
+                        <select className="rounded-md px-2" onChange={(event) => handleSelectType(event)} name="type" id="">
                             {data?.map((type: string) => {
                                 return <option value={type}>{type}</option>
-                            })}
+                            })};
                         </select>
+                        {
+                            selectedTypes.length > 0 && selectedTypes.length <= 2 && 
+                            <div className="flex gap-1">
+                                {selectedTypes.map((type, index) => (
+                                    <span className={`${type} text-white font-bold flex gap-1 rounded-3xl py-1 px-3 border-2`} key={index}>
+                                        {type}
+                                        <span className="relative left-1 pb-1 px-1 cursor-pointer" onClick={() => handleRemoveType(type)}>x</span>
+                                    </span>
+                                ))};
+                          </div>
+                        }
                         <button className="text-white rounded-md bg-sky-500 mt-6 py-2 hover:brightness-110">Create pokemon</button>
                     </div>
 

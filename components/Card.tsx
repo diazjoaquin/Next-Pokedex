@@ -1,6 +1,6 @@
 import React from "react";
-import Image from "next/image";
 import { useTheme } from "@/hooks/ThemeContext";
+import { useRouter } from "next/router";
 
 interface CardProps {
     id: string
@@ -23,9 +23,10 @@ const Card: React.FC<CardProps> = ({
 }) => {
 
     const { darkTheme } = useTheme(); 
+    const router = useRouter();
 
     return (
-        <div className={`${darkTheme ? 'bg-zinc-700' : 'bg-red-600'} flex flex-col rounded-xl items-center justify-between shadow-md shadow-zinc-600 hover:scale-110 px-2 transition ease-in-out delay-150`}>
+        <div onClick={() => router.push(`/pokemon/${id}`)}  className={`${darkTheme ? 'bg-zinc-700' : 'bg-red-600'} flex flex-col rounded-xl items-center justify-between shadow-md shadow-zinc-600 hover:scale-110 px-2 transition ease-in-out delay-150`}>
             <div id={id} className=" text-white gap-2 font-bold flex w-100 mt-6">
                 <h1>{name}</h1>
             </div>

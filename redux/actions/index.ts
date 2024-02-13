@@ -47,7 +47,7 @@ export const getTypes = () =>  async (dispatch: Dispatch) => {
     }
 };
 
-export const getPokemonByName = (name : string) => async (dispatch: Dispatch) => {
+export const getPokemonByName = (name: string) => async (dispatch: Dispatch) => {
     try {
 
         const { data } = await axios.get(`/api/pokemon?name=${name}`);
@@ -114,5 +114,19 @@ export const orderByDefense = (payload: string) => (dispatch: Dispatch) => {
     } catch (error) {
         throw new Error ('Error ordering by name');
         
+    }
+};
+
+export const getDetail = (id: string) => async (dispatch: Dispatch) => {
+    try {
+
+        const { data } = await axios.get(`/api/pokemon/${id}`);
+        
+        return dispatch({
+            type: YourActionTypes.GET_POKEMON_DETAIL,
+            payload: data
+        })
+    } catch (error) {
+        throw new Error ('Error getting Details');
     }
 };

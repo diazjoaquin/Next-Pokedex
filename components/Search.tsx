@@ -1,6 +1,6 @@
 import { getPokemonByName } from "@/redux/actions";
 import { useAppDispatch } from "@/redux/hooks";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 
 export default function Search () {
@@ -8,17 +8,28 @@ export default function Search () {
     const dispatch = useAppDispatch();
     const [ input, setInput ] = useState('');
 
-    const handleChange = (event : any) => {
-        setInput(event.target.value);
+    useEffect(() =>  {
+        if (input.length >= 3) {
+            dispatch(getPokemonByName(input));
+        }
+    }, [dispatch, input]);
+
+    const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+        const value = event.target.value
+        setInput(value);
+        
     }
 
     
-    const handleSubmit = (event: any) => {
+    const handleSubmit = async (event: any) => {
         if (!input) {
             return alert ('Insert a valid name');
         }
+        if (input.length < 3) {
+            return alert ('insert 3 caracters at least');
+        }
         event.preventDefault();
-        dispatch(getPokemonByName(input));
+        await dispatch(getPokemonByName(input));
         
         setInput('');
     }

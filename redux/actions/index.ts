@@ -50,11 +50,9 @@ export const getTypes = () =>  async (dispatch: Dispatch) => {
 export const getPokemonByName = (name: string) => async (dispatch: Dispatch) => {
     try {
 
-        const { data } = await axios.get(`/api/pokemon?name=${name}`);
-
         return dispatch({
             type: YourActionTypes.GET_POKEMON_BYNAME,
-            payload: data
+            payload: name
         })
         
     } catch (error) {

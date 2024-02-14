@@ -1,7 +1,7 @@
 import { useTheme } from "@/hooks/ThemeContext";
 import { filterByType, getTypes, orderByAttack, orderByDefense, orderByName } from "@/redux/actions";
 import { useAppSelector, useAppDispatch } from "@/redux/hooks";
-import { AppState } from "@/redux/store";
+import { AppState } from "@/redux/reducer";
 import { ChangeEvent, useEffect, useState } from "react";
 
 
@@ -90,7 +90,7 @@ const Filter = () => {
                     <select name="" id="Types" onChange={(event) => handleFilterByType(event)} className="rounded-md py-1">
                         <option></option>
                         {
-                        data?.map((type : string) => {
+                        data?.map((type: any) => {
                             return <option key={type}>
                                 {type}
                             </option>

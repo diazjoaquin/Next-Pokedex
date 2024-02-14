@@ -74,7 +74,7 @@ interface Pokemon {
       case YourActionTypes.GET_POKEMON_BYNAME:
         return {
           ...state,
-          pokemons: state.filter.slice().filter((pokemon : any) => pokemon.name.includes(action.payload.name))  
+          pokemons: state.filter.slice().filter((pokemon : Pokemon) => pokemon.name.includes(action.payload))  
         }
   
       case YourActionTypes.FILTER_BY_TYPE:

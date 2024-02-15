@@ -1,5 +1,4 @@
 import Card from "./Card";
-import OrderAndFilter from "./OrderAndFilter";
 import {  useEffect } from "react";
 import { AppState } from "@/redux/reducer";
 import { getPokemons } from "@/redux/actions";
@@ -19,7 +18,7 @@ const PokemonList = () => {
     }, [dispatch]);
     
     return (
-        <main className="flex w-screen h-screen justify-center items-center">
+        <main className="absolute flex w-screen h-screen justify-center top-[120px] md:top-[170px]">
             { isLoading ? <Loader/> :
             <div className="grid md:grid-cols-3 lg:grid-cols-4 w-[80%] h-[60%] gap-5 lg:gap-8">
                 {
@@ -38,7 +37,6 @@ const PokemonList = () => {
                 })
                 }
             </div>}
-            <OrderAndFilter/>
         </main>
     )
 };

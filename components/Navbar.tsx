@@ -25,7 +25,7 @@ export default function Navbar () {
         justify-around 
         w-full 
         md:w-[90%] 
-        h-[10%] 
+        h-[9%] 
         md:h-[15%] 
         md:mx-[5%] 
         rounded-full 

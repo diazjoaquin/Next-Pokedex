@@ -19,9 +19,11 @@ export default function About () {
             h-5/6
             absolute 
             md:bottom-20
+            bottom-[40px]
             flex
             flex-col
             md:gap-2
+            gap-2
             md:px-12
             px-6
             md:py-10

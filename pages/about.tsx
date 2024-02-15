@@ -1,6 +1,8 @@
 import Navbar from "@/components/Navbar";
 import { Sidebar } from "@/components/Sidebar";
 import { useTheme } from "@/hooks/ThemeContext";
+import { AiFillGithub, AiFillLinkedin, AiOutlineWhatsApp } from "react-icons/ai";
+
 
 export default function About () {
 
@@ -38,7 +40,11 @@ export default function About () {
                 </div>
                 <h3 className="text-white font-bold text-2xl">Estado Actual:</h3>
                 <p className="text-white">Actualmente este proyecto se encuentra en desarrollo. Con la posibilidad de agregar nuevas funciones más adelante. Espero sea de tu agrado!</p>
-                <p></p>
+                <div className="flex flex-row gap-2 text-white text-4xl">
+                <a href="https://github.com/diazjoaquin" className="hover:scale-125 hover:brightness-150 transition ease-in-out delay-150"><AiFillGithub/></a>
+                <a href="https://www.linkedin.com/in/diazjoaquin-dev/" className="hover:scale-125 hover:brightness-150 transition ease-in-out delay-150"><AiFillLinkedin/></a> 
+                <a href="https://wa.me/+541126792759" className="hover:scale-125 hover:brightness-150 transition ease-in-out delay-150"><AiOutlineWhatsApp/></a>
+                </div>
             </section>
         </main>
     )

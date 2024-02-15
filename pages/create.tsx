@@ -3,7 +3,7 @@ import { Sidebar } from "@/components/Sidebar";
 import { useTheme } from "@/hooks/ThemeContext";
 import { getTypes } from "@/redux/actions";
 import { useAppSelector, useAppDispatch } from "@/redux/hooks";
-import { AppState } from "@/redux/store";
+import { AppState } from "@/redux/reducer";
 import { ChangeEvent, useEffect, useState } from "react";
 
 const Create = () => {
@@ -80,7 +80,7 @@ const Create = () => {
 
                         <label className="text-white" htmlFor="">Types:</label>
                         <select className="rounded-md px-2" onChange={(event) => handleSelectType(event)} name="type" id="">
-                            {data?.map((type: string) => {
+                            {data?.map((type: any) => {
                                 return <option value={type}>{type}</option>
                             })};
                         </select>

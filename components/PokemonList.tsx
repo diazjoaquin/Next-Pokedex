@@ -3,6 +3,7 @@ import {  useEffect } from "react";
 import { AppState } from "@/redux/reducer";
 import { getPokemons } from "@/redux/actions";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
+import Filter from "./OrderAndFilter";
 import Loader from "./Loader";
 
 const PokemonList = () => {
@@ -18,9 +19,9 @@ const PokemonList = () => {
     }, [dispatch]);
     
     return (
-        <main className="absolute flex w-screen h-screen justify-center top-[120px] md:top-[170px]">
+        <main className="flex w-screen h-screen justify-center">
             { isLoading ? <Loader/> :
-            <div className="grid md:grid-cols-3 lg:grid-cols-4 w-[80%] h-[60%] gap-5 lg:gap-8">
+            <div className="absolute top-[120px] md:top-[170px] grid md:grid-cols-3 lg:grid-cols-4 w-10/12 gap-5 lg:gap-8">
                 {
                     data?.map((pokemon: any) => {
                         return (
@@ -37,6 +38,7 @@ const PokemonList = () => {
                 })
                 }
             </div>}
+            <Filter/>
         </main>
     )
 };

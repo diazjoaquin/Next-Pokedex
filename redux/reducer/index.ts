@@ -112,7 +112,7 @@ interface Pokemon {
   
         return {
           ...state,
-          pokemons: names
+          pokemons: action.payload !== "Name" ? names : [...state.pokemons] 
         }
   
       case YourActionTypes.ORDER_BY_ATTACK: 
@@ -131,7 +131,7 @@ interface Pokemon {
   
         return {
           ...state,
-          pokemons: attack
+          pokemons: action.payload !== "Attack" ? attack : [...state.pokemons] 
         }
   
       case YourActionTypes.ORDER_BY_DEFENSE: 
@@ -150,7 +150,7 @@ interface Pokemon {
   
         return {
           ...state,
-          pokemons: defense
+          pokemons:  action.payload !== "Defense" ? defense : [...state.pokemons]
         }
   
       case YourActionTypes.GET_POKEMON_DETAIL:

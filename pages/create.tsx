@@ -5,6 +5,25 @@ import { getTypes } from "@/redux/actions";
 import { useAppSelector, useAppDispatch } from "@/redux/hooks";
 import { AppState } from "@/redux/reducer";
 import { ChangeEvent, useEffect, useState } from "react";
+import { NextPageContext } from "next";
+import { getSession } from "next-auth/react";
+
+export async  function getServerSideProps(context: NextPageContext) {
+  const session = await getSession(context);
+
+  if (!session) {
+    return {
+      redirect: {
+        destination: '/auth',
+        permanent: false
+      }
+    }
+  }
+
+  return {
+    props: {}
+  }
+}
 
 const Create = () => {
 

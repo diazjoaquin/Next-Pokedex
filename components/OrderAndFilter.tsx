@@ -53,7 +53,7 @@ const Filter = () => {
     }
 
     return (
-        <aside className="fixed flex items-center justify-center left-10 w-10 h-screen hover:w-[25%] group">
+        <aside className="hidden fixed md:flex items-center justify-center left-10 w-10 h-screen hover:w-[25%] group">
             <div className="block group-hover:rotate-180 transition duration-150">
                 <svg xmlns="http://www.w3.org/2000/svg" className="icon icon-tabler icon-tabler-circle-arrow-right" width="52" height="52" viewBox="0 0 24 24" strokeWidth="1.5" stroke={`${darkTheme ? '#18181b' : '#dc2626'}`} fill="none" strokeLinecap="round" strokeLinejoin="round">
                     <path stroke="none" d="M0 0h24v24H0z" fill="none"/>

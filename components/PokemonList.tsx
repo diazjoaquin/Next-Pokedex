@@ -5,12 +5,6 @@ import { getPokemons } from "@/redux/actions";
 import { useAppDispatch, useAppSelector } from "@/redux/hooks";
 import Filter from "./OrderAndFilter";
 import Loader from "./Loader";
-import { 
-    MdKeyboardArrowRight, 
-    MdKeyboardArrowLeft, 
-    MdKeyboardDoubleArrowLeft, 
-    MdKeyboardDoubleArrowRight } 
-from "react-icons/md";
 import { Pagination } from "./Pagination";
 
 const PokemonList = () => {
@@ -38,6 +32,14 @@ const PokemonList = () => {
         currentPage > 1 ? setCurrentPage(currentPage - 1) : setCurrentPage(currentPage);
     };
 
+    const handleToEnd = () => {
+        setCurrentPage(Math.ceil(numOfPages as number));
+    }
+
+    const handleToBeginning = () => {
+        setCurrentPage(1);
+    }
+    
 
     useEffect(() => {
         dispatch(getPokemons());
@@ -45,9 +47,18 @@ const PokemonList = () => {
     
     return (
         <main className="flex w-screen h-screen justify-center">
-            <Pagination currentPage={currentPage} handleNext={handleNext} handlePrevious={handlePrevious}/>
-            { isLoading ? <Loader/> :
-            <div className="absolute top-[170px] md:top-[200px] grid md:grid-cols-3 lg:grid-cols-4 w-10/12 gap-5 lg:gap-8">
+            {!isLoading ? 
+            <Pagination 
+            currentPage={currentPage} 
+            handleToBeginning={handleToBeginning} 
+            handleToEnd={handleToEnd} 
+            handleNext={handleNext} 
+            handlePrevious={handlePrevious}
+            numOfPages={numOfPages as number} /> : 
+            null }
+            { isLoading ? 
+            <Loader/> :
+            <div className="absolute top-[170px] md:top-[200px] grid md:grid-cols-3 lg:grid-cols-4 w-10/12 gap-5 lg:gap-8 pb-20">
                 {
                     currentItems?.map((pokemon: any) => {
                         return (

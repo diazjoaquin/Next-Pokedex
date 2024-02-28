@@ -29,7 +29,7 @@ export const Pagination: React.FC<PaginationProps> = ({
     const { darkTheme } = useTheme(); 
 
     return (
-        <div className="absolute top-[125px] md:top-[150px]">
+        <div className="absolute top-[125px] md:top-[160px]">
             <div className="">
                 {
                     <div className="flex gap-2 text-white">

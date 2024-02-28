@@ -58,7 +58,7 @@ const PokemonList = () => {
             null }
             { isLoading ? 
             <Loader/> :
-            <div className="absolute top-[170px] md:top-[200px] grid md:grid-cols-3 lg:grid-cols-4 w-10/12 gap-5 lg:gap-8 pb-20">
+            <div className="absolute top-[170px] md:top-[220px] grid md:grid-cols-3 lg:grid-cols-4 w-10/12 gap-5 lg:gap-8 pb-20">
                 {
                     currentItems?.map((pokemon: any) => {
                         return (

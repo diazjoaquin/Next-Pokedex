@@ -26,7 +26,8 @@ export default function Navbar () {
         w-full 
         md:w-[90%] 
         h-[9%] 
-        md:h-[15%] 
+        md:h-[10%]
+        lg:h-[13%]
         md:mx-[5%] 
         rounded-full 
         shadow-md

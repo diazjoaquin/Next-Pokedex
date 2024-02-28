@@ -35,8 +35,8 @@ const Card: React.FC<CardProps> = ({
             <div onClick={() => router.push(`/pokemon/${id}`)} id={id} className=" text-white capitalize gap-2 font-bold flex w-100 mt-6">
                 <h1>{name}</h1>
             </div>
-            <div onClick={() => router.push(`/pokemon/${id}`)} className="inline-block pt-2 pb-6 h-5/6">
-                <img src={imgUrl as string} className="" alt="pokemon" />
+            <div onClick={() => router.push(`/pokemon/${id}`)} className="inline-block pt-2 pb-6 h-5/6 w-full">
+                <img src={imgUrl as string} className="aspect-[1/1] h-full w-full" alt="pokemon" />
             </div>
             <div className="text-white w-full font-bold text-sm flex items-center justify-center px-4 gap-3 lg:gap-4">
                 <span 

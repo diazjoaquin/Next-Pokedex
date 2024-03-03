@@ -7,7 +7,6 @@ import { getDetail } from "@/redux/actions";
 import { useRouter } from "next/router";
 import Loader from "@/components/Loader";
 import { AppState, Details } from "@/redux/reducer";
-import Image from "next/image";
 
 
 export default function Pokemon () {
@@ -18,9 +17,6 @@ export default function Pokemon () {
 	const dispatch = useAppDispatch();
 	const [ isLoading, setIsLoading ] = useState(true);
 	const data  = useAppSelector((state?: AppState) => state?.details as Details);
-	// console.log(id);
-	// console.log(data);
-	
 	
 
 	
@@ -65,7 +61,6 @@ export default function Pokemon () {
 			shadow-md`}>
 				<div className="flex h-12 pt-4 gap-2 justify-center">
 					<h1 className="text-white text-3xl font-bold uppercase">{data?.name}</h1>
-					<h2 className="text-white text-xl">{data?.id}</h2>
 				</div>
 				<section className="h-4/5 flex flex-col gap-10">
 					<article className="flex justify-center items-center h-3/6">
@@ -79,7 +74,6 @@ export default function Pokemon () {
 							<span className="text-white border-2 px-3 rounded-full py-2">{data?.speed}</span>
 							<span className="text-white border-2 px-3 rounded-full py-2">{data?.height}</span>
 							<span className="text-white border-2 px-3 rounded-full py-2">{data?.weight}</span>
-
 						</div>
 						<div className="flex justify-center items-center gap-4 md:gap-12">
 						{data?.types?.map((type:any) => {
@@ -87,6 +81,10 @@ export default function Pokemon () {
 								<span key={type} className={`${type} flex text-white capitalize text-sm items-center justify-center gap-2 w-[45%] md:w-[30%] rounded-full py-2`}><img src={`/images/types/${type}.svg`} className="w-auto h-auto max-w-[30px] " alt="type"/>{type}</span>
 							)
 						})}
+						</div>
+						<div className={`${data.custom ? '' : 'hidden'} text-white font-bold text-lg absolute top-3 right-10 capitalize`}>
+							<span>created by: </span>
+							<span className="text-blue-400">{data.createdBy}</span>
 						</div>
 					</article>
 				</section>

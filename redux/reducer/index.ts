@@ -29,6 +29,7 @@ interface Pokemon {
       height: number
       weight: number
       custom: boolean
+      createdBy: string
       types: string[]
   }
   

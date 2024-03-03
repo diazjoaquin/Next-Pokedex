@@ -39,7 +39,7 @@ export default async function handler (req: NextApiRequest, res: NextApiResponse
         }        
 
         if (!imgUrl) {
-            imgUrl = "@/public/images/default.png";
+            imgUrl = "/images/default.png";
         }
 
         if (!types) {

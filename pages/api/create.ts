@@ -10,7 +10,7 @@ export default async function handler (req: NextApiRequest, res: NextApiResponse
 
     try {
 
-        const { 
+        let { 
             name, 
             hp, 
             attack, 
@@ -30,11 +30,21 @@ export default async function handler (req: NextApiRequest, res: NextApiResponse
         });
 
         if (existingPokemon) {
-            return res.status(422).json({
-                error: "Pokemon already exists"
-            });
+            return res.status(422).end();
 
         };
+
+        if (!name || !hp || !attack || !defense || !speed || !height || !weight || !custom || !createdBy) {
+            throw new Error ("Missing parameters");
+        }        
+
+        if (!imgUrl) {
+            imgUrl = "@/public/images/default.png";
+        }
+
+        if (!types) {
+            types = ['normal'];
+        }
 
         const pokemon = await prismadb.pokemon.create({
             data: {
@@ -46,18 +56,18 @@ export default async function handler (req: NextApiRequest, res: NextApiResponse
                 height,
                 weight,
                 imgUrl,
-                types,
                 custom,
-                createdBy
+                createdBy,
+                types
             }
         });
 
-        return res.status(200).json(pokemon);
+        return res.status(200).end();
 
         
         
-    } catch (error) {
-        console.log(error);
+    } catch (error: any) {
+        console.error('Error in API handler:', error.message);
         return res.status(400).end();
         
     };

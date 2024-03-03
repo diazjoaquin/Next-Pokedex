@@ -37,7 +37,10 @@ interface Pokemon {
     types: Types[], 
     details: {} | Details,
     filter: [],
-    isLoading: boolean
+    isLoading: boolean,
+    currentUser: {
+      name: String
+    }
   }
   
   const initialState : AppState = {
@@ -45,8 +48,10 @@ interface Pokemon {
     types: [],
     details: {},
     filter: [],
-    isLoading: true
-  
+    isLoading: true,
+    currentUser: {
+      name: ""
+    }
   }
   
   interface Action {
@@ -159,6 +164,13 @@ interface Pokemon {
         ...state,
         details: action.payload,
         isLoading: false
+      }
+
+      case YourActionTypes.GET_CURRENT_USER: 
+
+      return {
+        ...state,
+        currentUser: action.payload
       }
       
     }

@@ -13,7 +13,7 @@ export enum YourActionTypes {
     ORDER_BY_ATTACK = 'ORDER_BY_ATTACK',
     ORDER_BY_DEFENSE = 'ODER_BY_DEFENSE',
     DELETE_POKEMON = 'DELETE_POKEMON',
-    CLEAR_DETAIL = 'CLEAR_DETAIL',
+    GET_CURRENT_USER = 'GET_CURRENT_USER',
 }
 
 
@@ -124,7 +124,23 @@ export const getDetail = (id: string) => async (dispatch: Dispatch) => {
             type: YourActionTypes.GET_POKEMON_DETAIL,
             payload: data
         })
+
     } catch (error) {
         throw new Error ('Error getting Details');
+    }
+};
+
+export const getCurrentUser = () => async (dispatch: Dispatch) => {
+    try {
+        
+        const { data } = await axios.get('api/current');
+        
+        return dispatch({
+            type: YourActionTypes.GET_CURRENT_USER,
+            payload: data
+        })
+
+    } catch (error) {
+        throw new Error ('Cannot get current user');
     }
 };

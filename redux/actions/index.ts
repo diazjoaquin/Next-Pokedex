@@ -144,3 +144,17 @@ export const getCurrentUser = () => async (dispatch: Dispatch) => {
         throw new Error ('Cannot get current user');
     }
 };
+
+export const createPokemon = (form : any) => async (dispatch: Dispatch) => {
+    try {
+        
+        const data = await axios.post('/api/create', form);
+
+        return dispatch({
+            type: YourActionTypes.CREATE_POKEMON,
+        })
+
+    } catch (error) {
+        throw new Error ('Error creating pokemon');
+    }
+};

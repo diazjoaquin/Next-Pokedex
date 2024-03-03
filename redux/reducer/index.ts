@@ -172,6 +172,12 @@ interface Pokemon {
         ...state,
         currentUser: action.payload
       }
+
+      case YourActionTypes.CREATE_POKEMON:
+
+      return {
+        ...state
+      }
       
     }
   };

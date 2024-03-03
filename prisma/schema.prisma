@@ -71,7 +71,7 @@ model Pokemon {
   speed String
   height String
   weight String
-  custom Boolean?
+  custom Boolean
   createdBy String?
   types String[]
 }

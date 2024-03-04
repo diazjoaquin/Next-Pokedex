@@ -274,7 +274,7 @@ const Create = () => {
                             <label className="text-white text-sm">Types</label>
                             <select className="rounded-md px-2" onChange={(event) => handleSelectType(event)} name="type">
                                 {data?.map((type: any) => {
-                                    return <option value={type}>{type}</option>
+                                    return <option id={type} value={type}>{type}</option>
                                 })}
                             </select>
                         </section>

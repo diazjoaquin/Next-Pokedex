@@ -3,7 +3,7 @@ import { useTheme } from "@/hooks/ThemeContext";
 import Navbar from "@/components/Navbar";
 import { Sidebar } from "@/components/Sidebar";
 import { useState, useEffect } from "react";
-import { getDetail } from "@/redux/actions";
+import { deletePokemon, getDetail } from "@/redux/actions";
 import { useRouter } from "next/router";
 import Loader from "@/components/Loader";
 import { AppState, Details } from "@/redux/reducer";
@@ -35,6 +35,11 @@ export default function Pokemon () {
 		fetchData();
 	}, [dispatch, id]);
 
+	const handleDelete = async () => {
+		await dispatch(deletePokemon(id));
+		router.push('/');
+	}
+	
 	
 	return (
 		<main className="w-screen h-screen flex items-center justify-center">
@@ -85,6 +90,9 @@ export default function Pokemon () {
 						<div className={`${data.custom ? '' : 'hidden'} text-white font-bold text-lg absolute top-3 right-10 capitalize`}>
 							<span>created by: </span>
 							<span className="text-blue-400">{data.createdBy}</span>
+						</div>
+						<div className={`${data.custom ? '' : 'hidden'} absolute bottom-5 right-10`}>
+							<button onClick={() => handleDelete()} className="text-white text-lg font-bold border-2 px-6 py-1 rounded-lg bg-blue-500">Delete</button>
 						</div>
 					</article>
 				</section>

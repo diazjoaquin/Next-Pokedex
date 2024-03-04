@@ -158,3 +158,18 @@ export const createPokemon = (form : any) => async (dispatch: Dispatch) => {
         throw new Error ('Error creating pokemon');
     }
 };
+
+export const deletePokemon = (id: string) => async (dispatch: Dispatch) => {
+    try {
+        
+        await axios.delete(`/api/pokemon/${id}`);
+
+        return dispatch({
+            type: YourActionTypes.DELETE_POKEMON
+        })
+
+    } catch (error) {
+        throw new Error ('Errror deleting pokemon');
+    }
+
+};

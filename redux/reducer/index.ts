@@ -179,6 +179,13 @@ interface Pokemon {
       return {
         ...state
       }
+
+      case YourActionTypes.DELETE_POKEMON:
+
+      return {
+        ...state,
+        details: {}
+      }
       
     }
   };

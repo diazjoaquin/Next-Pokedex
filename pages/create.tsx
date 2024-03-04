@@ -273,8 +273,8 @@ const Create = () => {
                         <section className="flex flex-col md:gap-1 justify-between">
                             <label className="text-white text-sm">Types</label>
                             <select className="rounded-md px-2" onChange={(event) => handleSelectType(event)} name="type">
-                                {data?.map((type: any) => {
-                                    return <option key ={type} value={type}>{type}</option>
+                                {data?.map((type: any, index) => {
+                                    return <option key={index} value={type}>{type}</option>
                                 })}
                             </select>
                         </section>

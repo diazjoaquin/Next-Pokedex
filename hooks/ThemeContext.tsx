@@ -5,7 +5,12 @@ interface ThemeContextProps {
     toggleDarkTheme: () => void;
   }
 
-const ThemeContext = createContext<ThemeContextProps>();
+const initialThemeContext: ThemeContextProps = {
+  darkTheme: false,
+  toggleDarkTheme: () => {},
+};
+
+const ThemeContext = createContext<ThemeContextProps>(initialThemeContext);
 
 export const useTheme = () =>  useContext(ThemeContext);
 

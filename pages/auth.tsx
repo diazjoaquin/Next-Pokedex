@@ -1,11 +1,32 @@
 import axios from 'axios';
 import { useState, useCallback } from "react";  
-import { signIn } from 'next-auth/react';
+import { signIn, getSession } from 'next-auth/react';
 import { FcGoogle } from 'react-icons/fc';
-import { FaGithub } from 'react-icons/fa';
+// import { FaGithub } from 'react-icons/fa';
 import Input from '@/components/Input';
+import { NextPageContext } from 'next';
+import { useRouter } from 'next/router';
+
+export async function getServerSideProps(context: NextPageContext) {
+  const session = await getSession(context);
+
+  if (session) {
+    return {
+      redirect: {
+        destination: '/',
+        permanent: false,
+      }
+    }
+  }
+
+  return {
+    props: {}
+  }
+}
 
 const Auth = () => {
+
+  const router = useRouter();
 
   const [email, setEmail] = useState('');
   const [name, setName] = useState('');
@@ -22,13 +43,15 @@ const Auth = () => {
       await signIn('credentials', {
         email,
         password, 
+        // redirect: false,
         callbackUrl: '/'
       });
+
     } catch (error) {
       console.log(error);
       
     }
-  }, [email, password]);
+  }, [email, password, router]);
 
   const register = useCallback(async () => {
     try {
@@ -83,9 +106,9 @@ const Auth = () => {
                           <div onClick={() => signIn('google', { callbackUrl: '/' })} className='w-10 h-10 bg-white rounded-full flex items-center justify-center cursor-pointer hover:opacity-80 transition'>
                             <FcGoogle size={30}/>
                           </div>
-                          <div onClick={() => signIn('github', { callbackUrl: '/' })} className='w-10 h-10 bg-white rounded-full flex items-center justify-center cursor-pointer hover:opacity-80 transition'>
+                          {/* <div onClick={() => signIn('github', { callbackUrl: '/' })} className='w-10 h-10 bg-white rounded-full flex items-center justify-center cursor-pointer hover:opacity-80 transition'>
                             <FaGithub size={30}/>
-                          </div>
+                          </div> */}
                         </div>
                         <p className="text-neutral-500 mt-12">
                           {variant === 'login' ? 'First time?' : 'Already have an account?'}

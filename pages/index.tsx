@@ -4,29 +4,29 @@ import { Sidebar } from "@/components/Sidebar";
 import { NextPageContext } from "next";
 import { getSession } from "next-auth/react";
 
-export async  function getServerSideProps(context: NextPageContext) {
+export async function getServerSideProps(context: NextPageContext) {
   const session = await getSession(context);
 
   if (!session) {
     return {
       redirect: {
-        destination: '/auth',
-        permanent: false
-      }
-    }
+        destination: "/auth",
+        permanent: false,
+      },
+    };
   }
 
   return {
-    props: {}
-  }
+    props: {},
+  };
 }
 
 export default function Home() {
   return (
     <>
-      <Navbar/>
-      <PokemonList/>
-      <Sidebar/>
+      <Navbar />
+      <PokemonList />
+      <Sidebar />
     </>
-  )
+  );
 }

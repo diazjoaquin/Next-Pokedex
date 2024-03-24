@@ -1,74 +1,80 @@
-import prismadb from '@/libs/prismadb';
-import { NextApiRequest, NextApiResponse } from 'next';
+import prismadb from "@/libs/prismadb";
+import { NextApiRequest, NextApiResponse } from "next";
 
-export default async function handler (req: NextApiRequest, res: NextApiResponse) {
+export default async function handler(
+  req: NextApiRequest,
+  res: NextApiResponse
+) {
+  if (req.method !== "POST") {
+    return res.status(405).end();
+  }
 
+  try {
+    let {
+      name,
+      hp,
+      attack,
+      defense,
+      speed,
+      height,
+      weight,
+      imgUrl,
+      types,
+      custom,
+      createdBy,
+    } = req.body;
 
-    if (req.method !== 'POST') {
-        return res.status(405).end();
-    };
+    const existingPokemon = await prismadb.pokemon.findUnique({
+      where: {
+        name,
+      },
+    });
 
-    try {
+    if (existingPokemon) {
+      return res.status(422).end();
+    }
 
-        let { 
-            name, 
-            hp, 
-            attack, 
-            defense, 
-            speed, 
-            height, 
-            weight, 
-            imgUrl, 
-            types, 
-            custom, 
-            createdBy } = req.body;
+    if (
+      !name ||
+      !hp ||
+      !attack ||
+      !defense ||
+      !speed ||
+      !height ||
+      !weight ||
+      !custom ||
+      !createdBy
+    ) {
+      throw new Error("Missing parameters");
+    }
 
-        const existingPokemon = await prismadb.pokemon.findUnique({
-            where: {
-                name,
-            }
-        });
+    if (!imgUrl) {
+      imgUrl = "/images/default.png";
+    }
 
-        if (existingPokemon) {
-            return res.status(422).end();
+    if (!types) {
+      types = ["normal"];
+    }
 
-        };
+    const pokemon = await prismadb.pokemon.create({
+      data: {
+        name,
+        hp,
+        attack,
+        defense,
+        speed,
+        height,
+        weight,
+        imgUrl,
+        custom,
+        createdBy,
+        types,
+      },
+    });
 
-        if (!name || !hp || !attack || !defense || !speed || !height || !weight || !custom || !createdBy) {
-            throw new Error ("Missing parameters");
-        }        
-
-        if (!imgUrl) {
-            imgUrl = "/images/default.png";
-        }
-
-        if (!types) {
-            types = ['normal'];
-        }
-
-        const pokemon = await prismadb.pokemon.create({
-            data: {
-                name,
-                hp,
-                attack,
-                defense,
-                speed,
-                height,
-                weight,
-                imgUrl,
-                custom,
-                createdBy,
-                types
-            }
-        });
-
-        return res.status(200).end();
-
-        
-        
-    } catch (error: any) {
-        console.error('Error in API handler:', error.message);
-        return res.status(400).end();
-        
-    };
-};
+    return res.status(200).end();
+  } catch (error: any) {
+    console.error("Error in API handler:", error.message);
+    return res.status(400).end();
+  }
+}

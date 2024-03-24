@@ -1,9 +1,16 @@
-import { useContext, createContext, useState, useCallback, ReactNode, FC } from "react";
+import {
+  useContext,
+  createContext,
+  useState,
+  useCallback,
+  ReactNode,
+  FC,
+} from "react";
 
 interface ThemeContextProps {
-    darkTheme: boolean;
-    toggleDarkTheme: () => void;
-  }
+  darkTheme: boolean;
+  toggleDarkTheme: () => void;
+}
 
 const initialThemeContext: ThemeContextProps = {
   darkTheme: false,
@@ -12,22 +19,22 @@ const initialThemeContext: ThemeContextProps = {
 
 const ThemeContext = createContext<ThemeContextProps>(initialThemeContext);
 
-export const useTheme = () =>  useContext(ThemeContext);
+export const useTheme = () => useContext(ThemeContext);
 
 interface ThemeProviderProps {
-    children: ReactNode;
-  }
+  children: ReactNode;
+}
 
 export const ThemeProvider: FC<ThemeProviderProps> = ({ children }) => {
-    const [darkTheme, setDarkTheme ] = useState(false);
+  const [darkTheme, setDarkTheme] = useState(false);
 
-    const toggleDarkTheme = useCallback(() => {
-        setDarkTheme((current) => !current)
-    }, [darkTheme])
+  const toggleDarkTheme = useCallback(() => {
+    setDarkTheme((current) => !current);
+  }, [darkTheme]);
 
-    return (
-        <ThemeContext.Provider value={{ darkTheme , toggleDarkTheme }}>
-            {children}
-        </ThemeContext.Provider>
-      );
-}
+  return (
+    <ThemeContext.Provider value={{ darkTheme, toggleDarkTheme }}>
+      {children}
+    </ThemeContext.Provider>
+  );
+};
